@@ -1,6 +1,6 @@
 from pathlib import Path
-from firebase_admin import credentials
 import os
+from firebase_admin import credentials, initialize_app
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,10 +11,11 @@ ALLOWED_HOSTS = ['*']
 # Firebase
 firebase_config_path = BASE_DIR / "serviceAccountKey.json"
 cred = credentials.Certificate(str(firebase_config_path))
+initialize_app(cred)
 
 INSTALLED_APPS = [
     "jazzmin",
-    "corsheaders",  # 👈 added for CORS
+    "corsheaders",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -23,11 +24,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "product",
     "rest_framework",
-    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # 👈 must be at top
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -38,7 +38,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Allow all origins (for development; restrict in production)
 CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'a.urls'
@@ -85,7 +84,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# ✅ Use custom Firebase auth logic (not Django TokenAuthentication)
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication'],
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
 }
