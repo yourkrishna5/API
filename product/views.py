@@ -1,4 +1,4 @@
-from rest_framework.views import APIView
+\from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Product
@@ -55,4 +55,4 @@ class InfoView(APIView):
     def get(self, request):
         info_list = Info.objects.all()
         serializer = InfoNamePicSerializer(info_list, many=True)
-        return Response(serializer.data
+        return Response(serializer.data)
