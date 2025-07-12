@@ -6,7 +6,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     brand = models.CharField(max_length=255)
     condition = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='products/')
+    image_url = models.URLField(blank=True, null=True)  # Changed from ImageField
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -40,7 +40,7 @@ class Info(models.Model):
     name = models.CharField(max_length=200)
     location = models.CharField(max_length=200, choices=PROVINCE_CHOICES)
     job = models.CharField(max_length=50, choices=JOB_CHOICES)
-    profile_picture = models.ImageField(upload_to="info/")
+    profile_picture_url = models.URLField(blank=True, null=True)  # Changed from ImageField
 
     def __str__(self):
         return self.name
