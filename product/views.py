@@ -34,4 +34,25 @@ class ApiHomeView(APIView):
                 "/create/": "Create a product with Firebase UID"
             },
             "how_to_use": "Send Firebase idToken in Authorization header as 'Bearer <token>'"
-        })
+  
+      })
+
+# views.py
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Info
+from .serializers import InfoSerializer, InfoNamePicSerializer
+
+class InfoView(APIView):
+    def post(self, request):
+        serializer = InfoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Info saved successfully."}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request):
+        info_list = Info.objects.all()
+        serializer = InfoNamePicSerializer(info_list, many=True)
+        return Response(serializer.data
