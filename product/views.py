@@ -56,3 +56,11 @@ class ApiHomeView(APIView):
             },
             "how_to_use": "Send Firebase ID token in Authorization header as 'Bearer <token>'"
         }, status=status.HTTP_200_OK)
+
+from rest_framework.generics import RetrieveAPIView
+from .models import Product
+from .serializers import ProductDetailSerializer
+
+class ProductDetailView(RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductDetailSerializer
