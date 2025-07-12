@@ -15,3 +15,9 @@ class InfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Info
         fields = '__all__'
+
+
+class InfoNamePicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Info
+        fields = ['name', 'profile_picture']
