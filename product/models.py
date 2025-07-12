@@ -8,7 +8,7 @@ class Product(models.Model):
     title = models.CharField(max_length=255)
     brand = models.CharField(max_length=255)
     condition = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='product_images/')
+ image_url=models.URLField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
