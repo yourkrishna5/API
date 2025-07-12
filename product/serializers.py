@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from drf_extra_fields.fields import Base64ImageField
 from .models import Product, Info, Comments
 
 
 # ---------- Product Serializers ----------
 class ProductSerializer(serializers.ModelSerializer):
-    image = Base64ImageField()
+    # Replace 'image' with 'image_url' as a simple URL field
+    image_url = serializers.URLField(required=False, allow_blank=True)
 
     class Meta:
         model = Product
@@ -13,16 +13,16 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
-    image = Base64ImageField()
+    image_url = serializers.URLField(required=False, allow_blank=True)
 
     class Meta:
         model = Product
-        fields = ['title', 'condition', 'brand', 'image']
+        fields = ['title', 'condition', 'brand', 'image_url']
 
 
 # ---------- Info Serializers ----------
 class InfoSerializer(serializers.ModelSerializer):
-    profile_picture = Base64ImageField()
+    profile_picture_url = serializers.URLField(required=False, allow_blank=True)
 
     class Meta:
         model = Info
@@ -30,11 +30,11 @@ class InfoSerializer(serializers.ModelSerializer):
 
 
 class InfoNamePicSerializer(serializers.ModelSerializer):
-    profile_picture = Base64ImageField()
+    profile_picture_url = serializers.URLField(required=False, allow_blank=True)
 
     class Meta:
         model = Info
-        fields = ['name', 'profile_picture']
+        fields = ['name', 'profile_picture_url']
 
 
 # ---------- Comment Serializer ----------
@@ -42,4 +42,4 @@ class Cserializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = '__all__'
-        read_only_fields = ['name']  # assuming you set this automatically in the view
+        read_only_fields = ['name']  # Assuming set automatically in view
