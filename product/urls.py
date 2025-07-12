@@ -13,4 +13,5 @@ urlpatterns = [
     path('info/', InfoView.as_view(), name='info'),
     path('<int:pk>/', ProductDetailView.as_view(), name='product-detail'),
     path('<int:pk>/comments/', ProductCommentView.as_view(), name='product-comments'),
+
 ]
