@@ -27,3 +27,14 @@ class InfoNamePicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Info
         fields = ['name', 'profile_picture']
+
+from rest_framework import serializers
+from drf_extra_fields.fields import Base64ImageField
+from .models import Product
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    image = Base64ImageField()
+
+    class Meta:
+        model = Product
+        fields = ['title', 'condition', 'brand', 'image', 'model_name']
