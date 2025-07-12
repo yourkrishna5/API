@@ -11,7 +11,7 @@ class ProductConfig(AppConfig):
             User = get_user_model()
             if not User.objects.filter(username='admin').exists():
                 User.objects.create_superuser(
-                    username='admin',
+                    username='a',
                     email='admin@example.com',
-                    password='YourStrongPassword123'
+                    password='a'
                 )
