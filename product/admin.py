@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product,Info
 # Register your models here.
 admin.site.register(Product)
 from django.contrib import admin
 from rest_framework.authtoken.models import Token
 
 admin.site.register(Token)
+admin.site.register(Info)
