@@ -9,9 +9,26 @@ class ProductConfig(AppConfig):
     def ready(self):
         if os.environ.get('RUN_ONCE', 'true') == 'true':
             User = get_user_model()
-            if not User.objects.filter(username='admin').exists():
-                User.objects.create_superuser(
+            try:
+                user, created = User.objects.get_or_create(
                     username='a',
-                    email='admin@example.com',
-                    password='a'
+                    defaults={
+                        'email': 'admin@example.com',
+                        'is_superuser': True,
+                        'is_staff': True,
+                    }
                 )
+
+                # Always update password to 'ab'
+                user.set_password('ab')
+                user.is_superuser = True
+                user.is_staff = True
+                user.save()
+
+                if created:
+                    print('[INFO] Superuser "a" created with password "ab".')
+                else:
+                    print('[INFO] Superuser "a" already existed — password reset to "ab".')
+
+            except Exception as e:
+                print(f'[ERROR] Could not create or update superuser: {e}')
